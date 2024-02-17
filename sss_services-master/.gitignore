@@ -1,0 +1,14 @@
+/.idea
+.gradle
+*.iml
+*.pdb
+**out/
+**build/
+*/target/
+*.log
+*.class
+*.tmp
+banner.txt
+~*.*
+*.jar
+!gradle/wrapper/gradle-wrapper.jar

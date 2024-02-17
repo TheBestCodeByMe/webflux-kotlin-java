@@ -1,0 +1,120 @@
+debug: true
+server:
+  port: 2443
+  ssl:
+    enabled: true
+    key-store: classpath:mail.com.jks
+    key-store-password: 123123-minsk
+    key-store-type: jks
+  servlet:
+    context-path: /
+spring:
+  profiles:
+    active: default
+  main:
+    lazy-initialization: false
+    web-application-type: reactive
+    banner-mode: console
+  web:
+    locale: en_CA
+  jmx:
+    enabled: false
+  security:
+    user:
+      name: user
+      password: 123123
+    repositories:
+      enabled: true
+  application:
+    name: mail
+    web-application-type: none
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  data:
+    redis:
+      repositories:
+        enabled: true
+      host: caches-dev.mail.com
+      port: 6379
+      timeout: 2000
+  mail:
+    #Web-UI: https://mail.mail.com/SOGo/
+    protocol: smtps
+    host: mail.mail.com
+    port: 465
+    username: dev-notif-store@mail.com
+    password: 123Minsk-Notif-dev
+    from: dev-notif-store@mail.com
+    retry-attempt-limit: 3
+    process-batch-limit: 10
+    process-batch-interval-seconds: 10
+  thymeleaf:
+    check-template-location: false
+  kafka:
+    bootstrap-servers: kafka.localhost:9092
+    listener:
+      type: batch
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      auto-offset-reset: earliest
+      group-id: ${spring.application.name}
+      properties:
+        isolation.level: read_committed
+logging:
+  level:
+    org.springframework: DEBUG
+    org.springframework.web: TRACE
+    org.springframework.boot.autoconfigure: DEBUG
+    org.springframework.r2dbc: DEBUG
+  config: classpath:log4j2.xml
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+        #include: "metrics, health, prometheus"
+        #exclude: "beans"
+  health:
+    redis:
+      enabled: false
+  metrics:
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+springdoc:
+  version: '@springdoc.version@'
+  api-docs:
+    enabled: true
+  swagger-ui:
+    use-root-path: true
+    enabled: true
+    operationsSorter: method
+    disable-swagger-default-url: true
+  cache:
+    disabled: true
+config:
+  restful:
+    return-error-2-response: true
+    profile:
+      name: ${spring.application.name}
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+debug: false
+trace: off
+server:
+  k8sMode: true
+  ssl:
+    enabled: false

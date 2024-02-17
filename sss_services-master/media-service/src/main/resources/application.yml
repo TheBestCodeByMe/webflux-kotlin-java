@@ -1,0 +1,128 @@
+---
+debug: false
+server:
+  port: 4444
+  ssl:
+    enabled: true
+    key-store: classpath:media.com.jks
+    key-store-password: 123123-minsk
+    key-store-type: jks
+  servlet:
+    context-path: /
+spring:
+  profiles:
+    active: default
+  main:
+    lazy-initialization: true
+    web-application-type: reactive
+    banner-mode: console
+  jmx:
+    enabled: false
+  security:
+    user:
+      name: user
+      password: 123123
+  application:
+    name: media
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  data:
+    redis:
+      repositories:
+        enabled: true
+      host: caches-dev.com
+      port: 6379
+      timeout: 2000
+  cache:
+    redis:
+      time-to-live: 86400
+  codec:
+    max-in-memory-size: 20MB
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.data.r2dbc.connectionfactory: DEBUG
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+  health:
+    redis:
+      enabled: false
+  metrics:
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+springdoc:
+  version: '@springdoc.version@'
+  api-docs:
+    enabled: true
+  swagger-ui:
+    use-root-path: true
+    enabled: true
+    operationsSorter: method
+    disable-swagger-default-url: true
+  cache:
+    disabled: true
+config:
+  security:
+    security-routes:
+      enabled: false
+    profile:
+      name: advanced
+      advanced-white-uri-list: /info,/health,/api/mediaFile/v1/download,/api/mediaFile/v2/upload
+    jwt:
+      name: standard
+      secret-key: ThisIsSecretForJWTHS512ThisIsSecretForJWTHS512
+  oauth2:
+    google:
+      enabled: true
+      routes:
+        enabled: true
+    service:
+      name: standard
+  filestorage:
+    host: https://media-dev.com:9001
+    accessKey: minio
+    secretKey: minioPass2022
+  restful:
+    return-error-2-response: true
+    profile:
+      name: ${spring.application.name}
+  cache:
+    jedis:
+      enabled: true
+  references:
+    auto-synchronize: true
+    privilege-group: false
+    privilege: false
+network:
+  cors:
+    allowed-path: localhost
+    allowed-origins:
+      additional: localhost
+    allowed-headers: "*"
+    allowed-methods: "*"
+    allowed-credentials: false
+    max-age: 1
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+debug: false
+trace: off
+server:
+  k8sMode: true
+  ssl:
+    enabled: false

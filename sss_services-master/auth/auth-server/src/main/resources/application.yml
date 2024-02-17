@@ -1,0 +1,161 @@
+---
+debug: true
+trace: true
+server:
+  port: 1444
+  ssl:
+    enabled: true
+    key-store: classpath:auth.com.jks
+    key-store-password: 123123-minsk
+    key-store-type: jks
+grpc:
+  server:
+    port: ${random.int[10000,32768]}
+    security:
+      enabled: true
+      certificateChain: classpath:auth.com.pem
+      privateKey: classpath:auth.com.key.pem
+spring:
+  profiles:
+    active: default
+  main:
+    lazy-initialization: true
+    web-application-type: reactive
+    banner-mode: console
+  jmx:
+    enabled: false
+  security:
+    user:
+      name: user
+      password: 123123
+  r2dbc:
+    database: tkn_cards_dev
+    username: dev_auth_admin
+    password: b46a59f9533849b1a16efb2f5
+    url: r2dbc:postgresql://ulia-dev.com:5432/dev_auth_db
+    pool:
+      enabled: true
+      initial-size: 2
+      max-size: 80
+      max-life-time: 9223372036854775807
+  application:
+    name: cm-auth-server
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  codec:
+    max-in-memory-size: 20MB
+  kafka:
+    enabled: true
+    bootstrap-servers: kafka.localhost:9092
+    listener:
+      type: batch
+    producer:
+      group-id: http-request
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      auto-offset-reset: earliest
+      group-id: auth-server
+      properties:
+        isolation.level: read_committed
+logging:
+  register-shutdown-hook: false
+  level:
+    root: DEBUG
+    org.springframework: DEBUG
+network:
+  cors:
+    allowed-path: localhost
+    allowed-origins:
+      additional: localhost
+    allowed-headers: "*"
+    allowed-methods: "*"
+    allowed-credentials: false
+    max-age: 1
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+        #include: "metrics, health, prometheus"
+        #exclude: "beans"
+  health:
+    redis:
+      enabled: true
+  metrics:
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+# new custom
+config:
+  entity:
+    core:
+      enabled: false
+  grpc:
+    actors-service:
+      server:
+        host: localhost
+        port: 16444
+  security:
+    h1:
+      white-headers: X-Real-IP, X-Forwarded-For
+    #white-headers: all
+    security-routes:
+      enabled: true
+    secured-params: username, password
+    profile:
+      name: advanced
+      webfilter:
+      #chain: development
+      advanced-white-uri-list: /api/some/v1/login,/api/some/v1/registry,/api/some/liveness,/api/some/readiness,/api/some-v1/login
+    jwt:
+      token:
+        enabled: true
+      name: standard
+      secret-key: ThisIsSecretForJWTHS512ThisIsSecretForJWTHS512
+      delete-deprecated:
+        enabled: true
+        expiryDays: 60 # days
+        period: 300 # seconds
+  restful:
+    return-error-2-response: true
+    security:
+      some-v1:
+        enabled: true
+        jwt:
+          secret-key: ThisIsSecretForJWTHS512ThisIsSecretForJWTHS512
+          expiration-time: 62
+        refresh-jwt:
+          expiration-time: 1802
+        server: https://admin.com
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+debug: false
+trace: off
+server:
+  k8sMode: true
+  ssl:
+    enabled: false
+grpc:
+  server:
+    port: 11444
+    security:
+      enabled: false
+config:
+  grpc:
+    reflection:
+      enabled: true
+  security:
+    h1:
+      white-hosts: test-auth-api.com, auth-api.com

@@ -1,0 +1,194 @@
+---
+debug: true
+trace: true
+server:
+  kotest:
+    mode: false
+  port: 8443
+  ssl:
+    enabled: true
+    key-store: classpath:mail.com.jks
+    key-store-password: 123123-minsk
+    key-store-type: jks
+  servlet:
+    context-path: /
+grpc:
+  server:
+    port: ${random.int[10000,32768]}
+    security:
+      enabled: true
+      certificateChain: classpath:mail.com.pem
+      privateKey: classpath:mail.com.key.pem
+spring:
+  profiles:
+    active: default
+  main:
+    lazy-initialization: true
+    web-application-type: reactive
+    banner-mode: console
+  jmx:
+    enabled: false
+  web:
+    locale: en_CA
+    locale-resolver: fixed
+  security:
+    user:
+      name: user
+      password: 123123
+  r2dbc:
+    username: ${DB_USER_NAME:dev_quiz_admin}
+    password: ${DB_PASSWORD:16f18feef74c41959e3370747}
+    url: ${DB URL:r2dbc:postgresql://ulia-dev.com:5432/dev_quiz_db}
+    pool:
+      enabled: true
+      initial-size: 2
+      max-size: 80
+      validation-query: SELECT 1
+      max-life-time: 9223372036854775807
+    next-val-cmd: SELECT nextval('seq_action_id')
+    repositories:
+      enabled: true
+  application:
+    name: quiz
+  jackson:
+    serialization:
+      fail-on-empty-beans: false
+  data:
+    redis:
+      repositories:
+        enabled: true
+      host: caches-dev.com
+      port: 6379
+      timeout: 2000
+  cache:
+    redis:
+      time-to-live: 86400
+  messages:
+    basename: messages
+    encoding: UTF-8
+    cache-duration: 3600
+    use-code-as-default-message: true
+    fallback-to-system-locale: true
+  codec:
+    max-in-memory-size: 20MB
+  kafka:
+    bootstrap-servers: kafka.localhost:9092
+    listener:
+      type: batch
+    producer:
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    consumer:
+      auto-offset-reset: earliest
+      group-id: ${spring.application.name}
+      properties:
+        isolation.level: read_committed
+logging:
+  register-shutdown-hook: false
+  level:
+    root: DEBUG
+    org.springframework: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.boot.autoconfigure: DEBUG
+    org.springframework.r2dbc: DEBUG
+  #        org.springframework.data.r2dbc.connectionfactory: DEBUG
+  config: classpath:log4j2.xml
+network:
+  cors:
+    allowed-path: localhost
+    allowed-origins:
+      additional: localhost
+    allowed-headers: "*"
+    allowed-methods: "*"
+    allowed-credentials: false
+    max-age: 1
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    enabled-by-default: true
+    web:
+      exposure:
+        include: "*"
+        #include: "metrics, health, prometheus"
+        #exclude: "beans"
+  health:
+    redis:
+      enabled: false
+  metrics:
+    distribution:
+      percentiles-histogram:
+        "[http.server.requests]": true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+springdoc:
+  version: '@springdoc.version@'
+  api-docs:
+    enabled: true
+  swagger-ui:
+    use-root-path: true
+    enabled: true
+    operationsSorter: method
+    disable-swagger-default-url: true
+  cache:
+    disabled: true
+config:
+  grpc:
+    actors-service:
+      server:
+        host: ulia-dev.com
+        port: 16443
+  liveness:
+    hosts: { #'media-dev.com':9000,
+      #                'admin.com':443,
+      'smartsafeschool.com': 443
+       }
+  restful:
+    return-error-2-response: true
+    profile:
+      name: ${spring.application.name}
+    security:
+#      schoolV1:
+#        server:
+#          host-port: https://admin.com
+  entity:
+    core:
+      action:
+        execution:
+          async-alg-store:
+            enabled: false
+            delay: 50
+  cache:
+    jedis:
+      enabled: true
+  references:
+    auto-synchronize: true
+    privilege-group: false
+    privilege: false
+  security:
+    manager-passwords:
+       expiry: 2592000
+       unique: true
+    security-routes:
+      enabled: false
+    profile:
+      name: advanced
+      advanced-white-uri-list: /info,/health
+    jwt:
+      name: standard
+      secret-key: ThisIsSecretForJWTHS512ThisIsSecretForJWTHS512
+    bucket4j:
+      enabled: false
+      trusted-ips: localhost
+---
+spring:
+  config:
+    activate:
+      on-profile: test
+debug: false
+trace: off
+server:
+  ssl:
+    enabled: false

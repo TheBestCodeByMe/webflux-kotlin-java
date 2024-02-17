@@ -1,0 +1,3 @@
+#!/bin/sh
+
+./gradlew clean build -x test -x detekt -x checkBestPractices -x checkstyleMain -x validatePlugins -x distZip -x distTar -x bootDistZip -x bootDistTar

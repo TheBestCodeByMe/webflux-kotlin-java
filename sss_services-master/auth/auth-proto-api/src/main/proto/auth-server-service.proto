@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package authServerClient;
+import "protobuf-response.proto";
+import "user-v1-dto.proto";
+
+option java_package = "org.dbs.protobuf.auth";
+option java_multiple_files = true;
+
+service AuthServerClientService {
+  // users-v1 (monolith)
+  rpc userV1Login (UserV1LoginRequest) returns (UserV1LoginResponse);
+  rpc refreshUserV1Jwt (RefreshUserV1JwtRequest) returns (RefreshUserV1JwtResponse);
+}
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//======================================================================================================================

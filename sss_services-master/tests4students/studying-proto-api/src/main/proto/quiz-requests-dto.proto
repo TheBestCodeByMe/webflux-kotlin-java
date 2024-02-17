@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+package quizTemplate;
+import "protobuf-response.proto";
+import "google/protobuf/wrappers.proto";
+import "query-param.proto";
+
+option java_package = "org.dbs.protobuf.quiz";
+option java_multiple_files = true;
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+// createOrUpdate
+//======================================================================================================================
+
+message CreateOrUpdateQuizRequestRequest {
+  string templateCode = 10;
+  repeated string logins = 20;
+  int64 timeSpent = 30;
+  int64 openDate = 40;
+  int64 deadlineDate = 50;
+  int64 startDate = 60;
+  int64 finishDate = 70;
+  int64 remainTime = 80;
+}
+
+
+message  CreatedQuizRequestDto {
+  string templateCode = 10;
+  repeated string logins = 20;
+}
+
+message CreateQuizRequestResponse {
+  org.dbs.protobuf.core.ResponseAnswer responseAnswer = 10;
+}
+
+// updateStatus
+//======================================================================================================================
+
+message UpdateStatusQuizRequestRequest {
+  string quizRequestCode = 10;
+  string newStatus = 20;
+}
+
+message  UpdatedStatusQuizRequestDto {
+  string quizRequestCode = 10;
+  string newStatus = 20;
+}
+
+message UpdateStatusQuizRequestResponse {
+  org.dbs.protobuf.core.ResponseAnswer responseAnswer = 10;
+}
+
+// updateStatus (IN_PROCESS)
+//======================================================================================================================
+
+message UpdateStatusStartQuizRequestRequest {
+  string quizRequestCode = 10;
+  string newStatus = 20;
+}
+
+message  UpdatedStatusStartQuizRequestDto {
+  string quizRequestCode = 10;
+  string newStatus = 20;
+}
+
+message UpdateStatusStartQuizRequestResponse {
+  org.dbs.protobuf.core.ResponseAnswer responseAnswer = 10;
+}

@@ -1,0 +1,120 @@
+version: "3.9"
+services:
+  kafka:
+    hostname: ${KAFKA_HOST}
+    image: ${KAFKA_IMAGE}
+    container_name: ${KAFKA_CONTAINER}
+    restart: ${DEFAULT_RESTART}
+    ports:
+      - ${KAFKA_PORT}:${KAFKA_PORT}
+    environment:
+      KAFKA_ADVERTISED_HOST_NAME: ${KAFKA_HOST}
+      KAFKA_ZOOKEEPER_CONNECT: ${ZOO_PROJECT}:${ZOO_PORT}
+    depends_on:
+      - ${ZOO_PROJECT}
+    networks:
+      - general
+  #---------------------------------------------------------------------------------------------------------------------
+  redis:
+    hostname: ${REDIS_HOST}
+    image: ${REDIS_PROJECT_IMAGE}
+    container_name: ${REDIS_PROJECT_CONTAINER}
+    restart: ${DEFAULT_RESTART}
+    ports:
+      - ${REDIS_PORT}:${REDIS_PORT}
+    command: bash -c "$REDIS_COMMAND && $REDIS_RESET_CACHE_CMD "
+    networks:
+      - general
+#  #---------------------------------------------------------------------------------------------------------------------
+  auth-server:
+    hostname: ${AUTH_SERVER_HOST}
+    depends_on:
+      - kafka
+      - redis
+    environment:
+      spring.application.name: ${AUTH_SERVER_PROJECT}
+      spring.security.user.name: ${SPRING_SECURITY_USER}
+      spring.security.user.password: ${SPRING_SECURITY_USER}
+      spring.r2dbc.url: ${AUTH_SERVER_DB_URL}
+      spring.r2dbc.pool.enabled: ${R2DBC_POOL_ENABLE}
+      spring.r2dbc.pool.initial-size: ${R2DBC_MIN_POOL_SIZE}
+      spring.r2dbc.pool.max-size: ${R2DBC_MAX_POOL_SIZE}
+      spring.r2dbc.username: ${AUTH_SERVER_DB_USERNAME}
+      spring.r2dbc.password: ${AUTH_SERVER_DB_PASSWORD}
+      server.port: ${AUTH_SERVER_PORT}
+      server.ssl.enabled: ${SSL_ENABLED}
+      server.ssl.key-store: ${SSL_CERT_NAME}
+      server.ssl.key-store-password: ${SSL_CERT_PASS}
+      server.k8sMode: ${K8S_ENABLED}
+      spring.kafka.bootstrap-servers: ${KAFKA_HOST}:${KAFKA_PORT}
+      management.health.redis.enabled: ${REDIS_HEALTH_CHECK_ENABLED}
+      spring.data.redis.host: ${REDIS_HOST_URL}
+      spring.data.redis.port: ${REDIS_PORT}
+      spring.data.redis.password: ${REDIS_PASS}
+      network.cors.config.enabled: ${CORS_ENABLED}
+      network.cors.allowed-origins.additional: ${CORS_ALLOWED_ORIGINS_ADDITIONAL}
+      config.restful.security.some.server: ${SOME_URL}
+      config.restful.security.some.jwt.expiration-time: ${SOME_JWT_ACCESS_EXPIRATION_TIME}
+      config.restful.security.some.refresh-jwt.expiration-time: ${SOME_JWT_REFRESH_EXPIRATION_TIME}
+      config.restful.message.print-entity-id: ${PRINT_ENTITY_ID}
+    container_name: ${AUTH_SERVER_CONTAINER}
+    image: ${AUTH_SERVER_IMAGE}
+    restart: ${DEFAULT_RESTART}
+    build:
+      context: ~/${ROOT_PROJECT}/${AUTH_SERVER_PROJECT}
+    ports:
+      - ${AUTH_SERVER_PORT}:${AUTH_SERVER_PORT}
+    volumes:
+      - ${LOG_FLD}:${LOG_FLD}
+    networks:
+      - general
+  #---------------------------------------------------------------------------------------------------------------------
+  banking:
+    hostname: ${BANKING_HOST}
+    depends_on:
+      - auth-server
+    environment:
+      spring.application.name: ${BANKING_PROJECT}
+      spring.kafka.bootstrap-servers: ${KAFKA_HOST}:${KAFKA_PORT}
+      spring.r2dbc.url: ${BANKING_PROJECT_DB_URL}
+      spring.r2dbc.username: ${BANKING_PROJECT_DB_USERNAME}
+      spring.r2dbc.password: ${BANKING_PROJECT_DB_PASSWORD}
+      spring.data.redis.host: ${REDIS_HOST_URL}
+      spring.data.redis.port: ${REDIS_PORT}
+      spring.security.user.name: ${SPRING_SECURITY_USER}
+      spring.security.user.password: ${SPRING_SECURITY_USER}
+      log4j.debug: ${LOG4J_DEBUG}
+      server.port: ${BANKING_SERVER_PORT}
+      server.ssl.enabled: ${SSL_ENABLED}
+      server.ssl.key-store: ${SSL_CERT_NAME}
+      server.ssl.key-store-password: ${SSL_CERT_PASS}
+      server.k8sMode: ${K8S_ENABLED}
+      spring.data.redis.password: ${REDIS_PASS}
+      network.cors.config.enabled: ${CORS_ENABLED}
+      network.cors.allowed-origins.additional: ${CORS_ALLOWED_ORIGINS_ADDITIONAL}
+      config.restful.message.print-entity-id: ${PRINT_ENTITY_ID}
+      config.entity.core.action.execution.async-alg-store.enabled: ${ENTITY_CORE_EXECUTION_ASYNC_ALG_ENABLED}
+      config.entity.core.action.execution.async-alg-store.delay: ${ENTITY_CORE_EXECUTION_ASYNC_ALG_DELAY}
+    container_name: ${BANKING_CONTAINER}
+    image: ${BANKING_IMAGE}
+    restart: ${DEFAULT_RESTART}
+    build:
+      context: ~/${ROOT_PROJECT}/${BANKING_FLD}/${BANKING_PROJECT}
+    ports:
+      - ${BANKING_SERVER_PORT}:${BANKING_SERVER_PORT}
+    healthcheck:
+      test: [ "CMD-SHELL", "curl https://${BANKING_HOST}/api/liveness" ]
+      interval: 60s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    volumes:
+      - ${LOG_FLD}:${LOG_FLD}
+    networks:
+      - general
+#---------------------------------------------------------------------------------------------------------------------
+networks:
+  general:
+    driver: bridge
+  postgres:
+    driver: bridge
