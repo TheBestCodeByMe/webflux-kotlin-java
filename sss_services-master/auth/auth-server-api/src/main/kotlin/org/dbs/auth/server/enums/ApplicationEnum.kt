@@ -4,7 +4,7 @@ import org.dbs.auth.server.consts.ApplicationId
 import org.dbs.consts.ApplicationName
 import org.dbs.consts.SysConst.APP_ACTORS
 import org.dbs.consts.SysConst.APP_BANKING_CORE
-import org.dbs.consts.SysConst.SOME_APP_STORE
+import org.dbs.consts.SysConst.SOME_APP_SOME
 import org.dbs.consts.SysConst.SOME_APP_V1
 import org.dbs.exception.UnknownEnumException
 

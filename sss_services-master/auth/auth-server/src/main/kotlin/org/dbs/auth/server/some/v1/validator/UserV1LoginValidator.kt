@@ -120,9 +120,9 @@ data class UserV1LoginValidator(
             phone = message.user.phone,
             email = message.user.email,
             address = message.user.address.map { it.toString() }.firstOrNull(),
-            schoolId = message.schoolId?.toString(),
+            someId = message.someId?.toString(),
             roles = message.user.roles.joinToString { it },
-            schoolTimeZone = message.schoolTimeZone
+            someTimeZone = message.someTimeZone
         )
     }
 

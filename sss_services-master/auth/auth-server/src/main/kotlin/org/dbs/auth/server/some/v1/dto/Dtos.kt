@@ -29,8 +29,8 @@ data class UserV1Dto(
 
 data class UserV1Message(
     val user: UserV1Details,
-    val schoolId: Long?,
-    val schoolTimeZone: Int = 0
+    val someId: Long?,
+    val someTimeZone: Int = 0
 )
 
 data class UserV1Details(

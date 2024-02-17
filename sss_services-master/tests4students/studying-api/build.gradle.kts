@@ -17,4 +17,4 @@ dependencies {
     implementation(libs.kotlin.stdlib.common)
 }
 
-description = "quiz-api"
+description = "studying-api"

@@ -22,7 +22,7 @@ import dsl.Dependencies.Projects.SPRING_CORE_API
 import dsl.Dependencies.Projects.SPRING_KAFKA_STARTER
 import dsl.Dependencies.Projects.SPRING_REST_API
 import dsl.Dependencies.Projects.STD_LIB
-import dsl.Dependencies.Projects.STORE_API
+import dsl.Dependencies.Projects.SOME_API
 import dsl.Dependencies.Projects.TEST_CORE
 import org.gradle.api.file.DuplicatesStrategy.EXCLUDE
 
@@ -56,7 +56,7 @@ dependencies {
     api(project(PERSISTENCE_API))
     api(project(R2DBC_STARTER))
     api(project(SPRING_REST_API))
-    api(project(STORE_API))
+    api(project(SOME_API))
     testApi(project(TEST_CORE))
 
     implementation(kotlin(STD_LIB))

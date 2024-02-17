@@ -3,9 +3,9 @@ package org.dbs.auth.server.clients.v1.grpc
 
 import org.dbs.application.core.api.LateInitVal
 import org.dbs.auth.server.JwtParamsDto
-import org.dbs.auth.server.consts.AuthServerConsts.V1.Claims.CL_SCHOOL_ID
+import org.dbs.auth.server.consts.AuthServerConsts.V1.Claims.CL_SOME_ID
 import org.dbs.auth.server.consts.AuthServerConsts.V1.Claims.CL_ROLES
-import org.dbs.auth.server.consts.AuthServerConsts.V1.Claims.CL_SCHOOL_TZ
+import org.dbs.auth.server.consts.AuthServerConsts.V1.Claims.CL_SOME_TZ
 import org.dbs.auth.server.consts.AuthServerConsts.V1.Claims.CL_USER_ADDRESS
 import org.dbs.auth.server.consts.AuthServerConsts.V1.Claims.CL_USER_EMAIL
 import org.dbs.auth.server.consts.AuthServerConsts.V1.Claims.CL_USER_FIRST_NAME

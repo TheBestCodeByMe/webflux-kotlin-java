@@ -33,9 +33,9 @@ import org.dbs.rest.api.enums.RestOperCodeEnum.OC_UNKNOWN_OR_INVALID_ADDRESS
 import org.dbs.rest.api.enums.RestOperCodeEnum.OC_UNKNOWN_REFRESH_TOKEN
 import org.dbs.rest.api.validator.AbstractStreamValidatorService
 import org.dbs.rest.service.ServerRequestFuncs.ip
-import org.dbs.auth.server.consts.AuthServerConsts.V1.Claims.CL_SCHOOL_ID
+import org.dbs.auth.server.consts.AuthServerConsts.V1.Claims.CL_SOME_ID
 import org.dbs.auth.server.consts.AuthServerConsts.V1.Claims.CL_ROLES
-import org.dbs.auth.server.consts.AuthServerConsts.V1.Claims.CL_SCHOOL_TZ
+import org.dbs.auth.server.consts.AuthServerConsts.V1.Claims.CL_SOME_TZ
 import org.dbs.auth.server.consts.AuthServerConsts.V1.Claims.CL_USER_ADDRESS
 import org.dbs.auth.server.consts.AuthServerConsts.V1.Claims.CL_USER_EMAIL
 import org.dbs.auth.server.consts.AuthServerConsts.V1.Claims.CL_USER_FIRST_NAME
@@ -74,8 +74,8 @@ data class UserV1RefreshJwtValidator(
                 jwtSecurityService.getClaimExpired(expiredJwt, CL_USER_PHONE)?.let { userPhone = it }
                 jwtSecurityService.getClaimExpired(expiredJwt, CL_USER_EMAIL)?.let { userEmail = it }
                 jwtSecurityService.getClaimExpired(expiredJwt, CL_USER_ADDRESS)?.let { userAddress = it }
-                jwtSecurityService.getClaimExpired(expiredJwt, CL_SCHOOL_ID)?.let { schoolId = it }
-                schoolTimeZone = jwtSecurityService.getClaimExpired(expiredJwt, CL_SCHOOL_TZ)?.toInt() ?: 0
+                jwtSecurityService.getClaimExpired(expiredJwt, CL_SOME_ID)?.let { someId = it }
+                someTimeZone = jwtSecurityService.getClaimExpired(expiredJwt, CL_SOME_TZ)?.toInt() ?: 0
                 jwtSecurityService.getClaimExpired(expiredJwt, CL_ROLES)?.let { roles = it }
             }
             responseBody.errors.whenNoErrors {
@@ -95,9 +95,9 @@ data class UserV1RefreshJwtValidator(
         phone = userPhone,
         email = userEmail,
         address = userAddress,
-        schoolId = schoolId,
+        someId = someId,
         roles = roles,
-        schoolTimeZone = schoolTimeZone
+        someTimeZone = someTimeZone
     )
 
     private fun findExpiredToken(refreshJwtStreamProcessor: UserV1RefreshJwtStreamProcessor): Mono<UserV1RefreshJwtStreamProcessor> =

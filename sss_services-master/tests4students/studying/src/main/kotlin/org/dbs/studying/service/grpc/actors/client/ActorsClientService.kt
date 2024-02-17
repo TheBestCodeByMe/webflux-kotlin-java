@@ -13,7 +13,7 @@ import org.dbs.grpc.ext.QueryParamsList.createQueryParamsList
 import org.dbs.protobuf.actors.GetSchoolCustomerByLoginDto
 import org.dbs.protobuf.actors.GetSchoolCustomerByLoginList
 import org.dbs.protobuf.actors.GetSchoolCustomerByLoginResponse
-import org.dbs.protobuf.core.QueryParamEnum.QPG_SCHOOL_CUSTOMER_LOGINS
+import org.dbs.protobuf.core.QueryParamEnum.QPG_SOME_CUSTOMER_LOGINS
 import org.dbs.protobuf.core.ResponseAnswer
 import org.dbs.protobuf.quiz.CreateQuizRequestResponse
 import org.dbs.service.EntityResponseBuilder
@@ -34,7 +34,7 @@ class ActorsClientService(private val actorsClientService: GrpcActorsClientServi
         if (!kotestMode) {
             actorsClientService.getCustomerByLogins(
                 createQueryParamsList(
-                    createQueryParam(QPG_SCHOOL_CUSTOMER_LOGINS, customerLogins),
+                    createQueryParam(QPG_SOME_CUSTOMER_LOGINS, customerLogins),
                 )
             )
         } else {

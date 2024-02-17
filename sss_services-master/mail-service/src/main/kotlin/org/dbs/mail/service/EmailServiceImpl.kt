@@ -4,7 +4,7 @@ import jakarta.mail.internet.MimeMessage
 import org.dbs.consts.SpringCoreConst.PropertiesNames.SPRING_MAIL_FROM
 import org.dbs.consts.SpringCoreConst.PropertiesNames.SPRING_MAIL_RETRY_ATTEMPT_LIMIT
 import org.dbs.consts.SysConst.EMPTY_STRING
-import org.dbs.safe.school.mail.dto.NotificationDto
+import org.dbs.safe.some.mail.dto.NotificationDto
 import org.dbs.service.I18NService.Companion.findI18nMessage
 import org.dbs.service.I18NService.Companion.getLocaleOrSystemLocale
 import org.dbs.spring.core.api.AbstractApplicationService

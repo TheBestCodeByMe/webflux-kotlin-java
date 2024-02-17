@@ -48,7 +48,7 @@ object GrpcUserV1Login {
 
                 //======================================================================================================
                 fun validateUserV1Credentials(): Mono<RAB> = run {
-                    schoolV1Client.getUserV1Credentials(userLogin, userPassword, this@run).flatMap {
+                    someV1Client.getUserV1Credentials(userLogin, userPassword, this@run).flatMap {
                         if (it.status == OK.value()) {
                             // status user
                             if (!it.message.user.enabled) {
@@ -71,7 +71,7 @@ object GrpcUserV1Login {
                             }
 
                             if (noErrors()) {
-                                jwtParamsDto.hold(schoolV1Client.toJwtParams(it))
+                                jwtParamsDto.hold(someV1Client.toJwtParams(it))
                             }
 
                         } else {

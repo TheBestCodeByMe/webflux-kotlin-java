@@ -1,7 +1,7 @@
 import dsl.Dependencies.Projects.ACTORS_API
 import dsl.Dependencies.Projects.APPLICATION_CORE_API
 import dsl.Dependencies.Projects.KAFKA_API
-import dsl.Dependencies.Projects.STORE_API
+import dsl.Dependencies.Projects.SOME_API
 
 plugins {
     idea

@@ -4,7 +4,7 @@ ARG JVM_VERSION=17-jdk-alpine
 FROM ubuntu:${OS_VERSION}
 FROM eclipse-temurin:${JVM_VERSION}
 # ------------------------------
-LABEL maintainer="info@smartsafeschool.com"
+LABEL maintainer="info@some.com"
 ENV TZ Europe/Moscow
 ENV PORT="443"
 ENV APP_NAME="banking-transactions"

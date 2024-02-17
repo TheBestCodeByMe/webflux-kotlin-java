@@ -2,9 +2,9 @@ package org.dbs.mail.config
 
 import org.apache.logging.log4j.kotlin.logger
 import org.dbs.consts.SpringCoreConst.Beans.DEFAULT_PROXY_BEANS_VAL
-import org.dbs.safe.school.mail.consts.NotificationConsts.MAIL_TEMPLATE_PREFIX
-import org.dbs.safe.school.mail.consts.NotificationConsts.MAIL_TEMPLATE_SUFFIX
-import org.dbs.safe.school.mail.consts.NotificationConsts.MESSAGE_SOURCE_BASE_NAME
+import org.dbs.safe.some.mail.consts.NotificationConsts.MAIL_TEMPLATE_PREFIX
+import org.dbs.safe.some.mail.consts.NotificationConsts.MAIL_TEMPLATE_SUFFIX
+import org.dbs.safe.some.mail.consts.NotificationConsts.MESSAGE_SOURCE_BASE_NAME
 import org.dbs.service.I18NService
 import org.springframework.boot.actuate.autoconfigure.audit.AuditEventsEndpointAutoConfiguration
 import org.springframework.boot.actuate.autoconfigure.condition.ConditionsReportEndpointAutoConfiguration

@@ -6,7 +6,7 @@ import org.dbs.consts.SpringCoreConst.PropertiesNames.SPRING_MAIL_PROCESS_BATCH_
 import org.dbs.consts.SpringCoreConst.PropertiesNames.SPRING_MAIL_PROCESS_BATCH_LIMIT
 import org.dbs.ext.CoroutineFuncs.isReadyToReceive
 import org.dbs.kafka.consts.KafkaConsts.Topics.EMAIL_TOPIC
-import org.dbs.safe.school.mail.dto.NotificationDto
+import org.dbs.safe.some.mail.dto.NotificationDto
 import org.dbs.spring.core.api.AbstractApplicationService
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.context.annotation.Lazy

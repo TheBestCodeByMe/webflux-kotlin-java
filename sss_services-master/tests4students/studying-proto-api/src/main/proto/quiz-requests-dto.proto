@@ -35,37 +35,3 @@ message  CreatedQuizRequestDto {
 message CreateQuizRequestResponse {
   org.dbs.protobuf.core.ResponseAnswer responseAnswer = 10;
 }
-
-// updateStatus
-//======================================================================================================================
-
-message UpdateStatusQuizRequestRequest {
-  string quizRequestCode = 10;
-  string newStatus = 20;
-}
-
-message  UpdatedStatusQuizRequestDto {
-  string quizRequestCode = 10;
-  string newStatus = 20;
-}
-
-message UpdateStatusQuizRequestResponse {
-  org.dbs.protobuf.core.ResponseAnswer responseAnswer = 10;
-}
-
-// updateStatus (IN_PROCESS)
-//======================================================================================================================
-
-message UpdateStatusStartQuizRequestRequest {
-  string quizRequestCode = 10;
-  string newStatus = 20;
-}
-
-message  UpdatedStatusStartQuizRequestDto {
-  string quizRequestCode = 10;
-  string newStatus = 20;
-}
-
-message UpdateStatusStartQuizRequestResponse {
-  org.dbs.protobuf.core.ResponseAnswer responseAnswer = 10;
-}

@@ -43,7 +43,7 @@ val googleGroup = "com.google.code.gson"
 // exludes
 val springExcStarter = "spring-boot-starter"
 val springExcStarterLogging = "spring-boot-starter-logging"
-val mainApplicationClassName = "org.dbs.school.ActorsApplication"
+val mainApplicationClassName = "org.dbs.some.ActorsApplication"
 
 dependencies {
     api(project(APPLICATION_CORE_API))

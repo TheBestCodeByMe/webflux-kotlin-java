@@ -96,7 +96,7 @@ rootDir
 
 // copy certs to project folders
 //======================================================================================================================
-val sslSrcFolder = "certs/smartsafeschool.com"
+val sslSrcFolder = "certs/some.com"
 val sslCertName = "mail.com.jks"
 val sslKeyCertName = "mail.com.key.pem"
 val sslCertChainName = "mail.com.pem"

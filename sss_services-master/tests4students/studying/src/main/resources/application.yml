@@ -143,14 +143,14 @@ config:
   liveness:
     hosts: { #'media-dev.com':9000,
       #                'admin.com':443,
-      'smartsafeschool.com': 443
+      'some.com': 443
        }
   restful:
     return-error-2-response: true
     profile:
       name: ${spring.application.name}
     security:
-#      schoolV1:
+#      someV1:
 #        server:
 #          host-port: https://admin.com
   entity:

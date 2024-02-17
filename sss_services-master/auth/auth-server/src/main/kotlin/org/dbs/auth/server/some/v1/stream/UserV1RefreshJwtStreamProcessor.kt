@@ -26,8 +26,8 @@ data class UserV1RefreshJwtStreamProcessor(
     var userPhone: String? = null
     var userEmail: String? = null
     var userAddress: String? = null
-    var schoolId: String? = null
-    var schoolTimeZone: Int = 0
+    var someId: String? = null
+    var someTimeZone: Int = 0
     var roles: String = EMPTY_STRING
     val userId by lazy { LateInitVal<Long>() }
     val issuedJwt by lazy { LateInitVal<Jwt>() }

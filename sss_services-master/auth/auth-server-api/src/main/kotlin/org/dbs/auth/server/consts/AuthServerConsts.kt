@@ -11,7 +11,7 @@ import org.dbs.consts.RestHttpConsts.URI_REGISTRY
 import org.dbs.consts.SysConst.APP_ACTORS
 import org.dbs.consts.SysConst.APP_BANKING_CORE
 import org.dbs.consts.SysConst.SOME_APP
-import org.dbs.consts.SysConst.SOME_APP_STORE
+import org.dbs.consts.SysConst.SOME_APP_SOME
 import org.dbs.consts.SysConst.SOME_APP_V1
 import org.dbs.consts.SysConst.SLASH
 import org.dbs.customers.consts.ActorsConsts.Routes.URI_ACTOR_CUSTOMER

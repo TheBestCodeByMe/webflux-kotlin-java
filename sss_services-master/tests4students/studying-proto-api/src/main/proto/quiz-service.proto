@@ -3,30 +3,13 @@ syntax = "proto3";
 package quizTemplate;
 import "protobuf-response.proto";
 import "google/protobuf/wrappers.proto";
-import "templates-dto.proto";
 import "quiz-requests-dto.proto";
 
 option java_package = "org.dbs.protobuf.quiz";
 option java_multiple_files = true;
 
 service QuizClientService {
-  // templates
-  rpc createOrUpdateTemplate (CreateOrUpdateTemplateRequest) returns (CreateTemplateResponse) {}
-  rpc updateStatusTemplate (UpdateStatusTemplateRequest) returns (UpdateStatusTemplateResponse) {}
-  rpc getQuizTemplate (QuizTemplateRequest) returns (QuizTemplateResponse) {}
-  rpc getQuizTemplateCards (QuizTemplateCardRequest) returns (QuizTemplateResponse) {}
-  rpc getQuizTemplateHistList (QuizTemplateHistListRequest) returns (QuizTemplateHistListResponse) {}
-  // quiz requests
   rpc createOrUpdateQuizRequest (CreateOrUpdateQuizRequestRequest) returns (CreateQuizRequestResponse) {}
-  rpc updateStatusQuizRequest (UpdateStatusQuizRequestRequest) returns (UpdateStatusQuizRequestResponse) {}
-  rpc updateStatusStartQuizRequest (UpdateStatusStartQuizRequestRequest) returns (UpdateStatusStartQuizRequestResponse) {}
-//  rpc getManagerCredentials (ManagerCredentialsRequest) returns (ManagerCredentialsResponse) {}
-//  rpc createManagerPassword (CreateManagerPasswordRequest) returns (CreateManagerPasswordResponse) {}
-//  rpc updateManagerPassword (UpdateManagerPasswordRequest) returns (UpdateManagerPasswordResponse) {}
-//    // customers
-//  rpc createOrUpdateSchoolCustomer (CreateOrUpdateSchoolCustomerRequest) returns (CreateSchoolCustomerResponse) {}
-//  rpc getCustomerCredentials (CustomerCredentialsRequest) returns (CustomerCredentialsResponse) {}
-//  rpc getSchoolCustomerList (GetSchoolCustomerRequest) returns (GetSchoolCustomerResponse) {}
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
